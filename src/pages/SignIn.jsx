@@ -11,6 +11,7 @@ import { GoogleAuthProvider, getAuth, signInWithPopup } from "firebase/auth";
 import { app } from "../Firebase/firebase";
 const SignIn = () => {
   let [loading, setLoading] = useState(false);
+  let [googleLoading,setGoogleLoading] = useState(false);
   let [data, setData] = useState({
     username: "",
     password: "",
@@ -46,8 +47,8 @@ const SignIn = () => {
   };
     let HandleGoogleAuth = async (e) => {
       e.preventDefault();
+      setGoogleLoading(true)
       try {
-        setLoading(true)
         let googleProvider = new GoogleAuthProvider();
         let auth = getAuth(app);
         let result = await signInWithPopup(auth, googleProvider);
@@ -68,7 +69,7 @@ const SignIn = () => {
         console.error(error);
       }
       finally{
-        setLoading(false)
+        setGoogleLoading(false);
       }
     };
   return (
@@ -112,7 +113,7 @@ const SignIn = () => {
             </label>
           </div>
           <button
-            disabled={loading}
+            disabled={loading || googleLoading}
             onClick={handleSubmit}
             className={`${
               loading ? "bg-black/70" : "bg-black"

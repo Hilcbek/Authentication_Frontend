@@ -11,6 +11,7 @@ import { useDispatch } from "react-redux";
 import { LOGIN } from "../../Toolkit/userSlice";
 const SignUp = () => {
   let [loading, setLoading] = useState(false);
+    let [googleLoading, setGoogleLoading] = useState(false);
   let dispatcher = useDispatch();
   let [data, setData] = useState({
     username: "",
@@ -41,7 +42,7 @@ const SignUp = () => {
   let HandleGoogleAuth = async (e) => {
     e.preventDefault();
     try {
-      setLoading(true)
+      setGoogleLoading(true)
       let googleProvider = new GoogleAuthProvider();
       let auth = getAuth(app);
       let result = await signInWithPopup(auth, googleProvider);
@@ -62,7 +63,7 @@ const SignUp = () => {
       console.error(error);
     }
     finally{
-      setLoading(false)
+      setGoogleLoading(false)
     }
   };
   return (
@@ -121,7 +122,7 @@ const SignUp = () => {
             </label>
           </div>
           <button
-            disabled={loading}
+            disabled={loading || googleLoading}
             onClick={handleSubmit}
             className={`${
               loading ? "bg-black/70" : "bg-black"
