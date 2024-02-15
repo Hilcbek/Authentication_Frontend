@@ -84,7 +84,7 @@ const Profile = () => {
         toast.success("Updated successfully!");
       }
     } catch (error) {
-      toast(error.response.data.error);
+      toast.error(error.response.data.error);
     } finally {
       setLoading(false);
       setImagePercentage(null);
