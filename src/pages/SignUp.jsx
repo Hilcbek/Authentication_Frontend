@@ -59,6 +59,7 @@ const SignUp = () => {
           email: res.data.data.email,
         })
       );
+      navigate("/");
     } catch (error) {
       console.error(error);
     }
